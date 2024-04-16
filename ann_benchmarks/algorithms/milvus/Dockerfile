@@ -2,6 +2,8 @@ FROM milvusdb/knowhere-env:pyknowhere1.3-20230303
 
 WORKDIR /home/app
 COPY run_algorithm.py requirements.txt ./
+ENV https_proxy=http://proxy-dmz.intel.com:912
+ENV http_proxy=http://proxy-dmz.intel.com:911
 
 # update python packages
 RUN pip3 install -r requirements.txt
