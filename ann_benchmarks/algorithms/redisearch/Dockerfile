@@ -1,6 +1,9 @@
 FROM redislabs/redisearch as redisearch
 FROM ann-benchmarks
 
+ENV https_proxy=http://proxy-dmz.intel.com:912
+ENV http_proxy=http://proxy-dmz.intel.com:911
+
 # Install Redis
 RUN apt-get update && apt-get install -y curl lsb-core
 RUN curl -fsSL https://packages.redis.io/gpg | gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
