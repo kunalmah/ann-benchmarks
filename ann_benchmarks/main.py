@@ -69,11 +69,13 @@ def run_worker(cpu: int, args: argparse.Namespace, queue: multiprocessing.Queue)
         if args.local:
             run(definition, args.dataset, args.count, args.runs, args.batch)
         else:
-            memory_margin = 500e6  # reserve some extra memory for misc stuff
-            mem_limit = int((psutil.virtual_memory().available - memory_margin) / args.parallelism)
+            memory_margin = 500e6  # reserve some extra memory for misc stuff            
+            #mem_limit = int((psutil.virtual_memory().available - memory_margin) / args.parallelism)
             #cpu_limit = str(cpu) if not args.batch else f"0-{multiprocessing.cpu_count() - 1}"
-            #cpu_limit = str(cpu) if args.batch else f"0-{multiprocessing.cpu_count() - 1}"
-            cpu_limit = f"0-{multiprocessing.cpu_count() - 1}"
+            #TODO:need to check if the memory and cpu settings exceeds the host configure
+            mem_limit = args.memlimit * 1024 * 1024 * 1024
+            cpu_limit = f"0-{args.cpulimit - 1}"
+            logger.info(f"DBEUG:: mem_limit={mem_limit}, cpu_limit={cpu_limit}")
             
             run_docker(definition, args.dataset, args.count, args.runs, args.timeout, args.batch, cpu_limit, mem_limit)
 
@@ -125,6 +127,8 @@ def parse_arguments() -> argparse.Namespace:
     )
     parser.add_argument("--run-disabled", help="run algorithms that are disabled in algos.yml", action="store_true")
     parser.add_argument("--parallelism", type=positive_int, help="Number of Docker containers in parallel", default=1)
+    parser.add_argument("--cpulimit", type=positive_int, help="how many cpu cores to be used", default=1)
+    parser.add_argument("--memlimit", type=positive_int, help="how many memory size(GB) to be used", default=8)
 
     args = parser.parse_args()
     if args.timeout == -1:
