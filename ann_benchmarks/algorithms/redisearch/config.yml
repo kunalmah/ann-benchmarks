@@ -8,6 +8,6 @@ float:
     name: redisearch
     run_groups:
       redisearch:
-        arg_groups: [[96]]
+        arg_groups: [[4]]
         args: {}
-        query_args: [[800]]
+        query_args: [[10]]
