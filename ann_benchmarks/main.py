@@ -74,7 +74,7 @@ def run_worker(cpu: int, args: argparse.Namespace, queue: multiprocessing.Queue)
             #cpu_limit = str(cpu) if not args.batch else f"0-{multiprocessing.cpu_count() - 1}"
             #TODO:need to check if the memory and cpu settings exceeds the host configure
             mem_limit = args.memlimit * 1024 * 1024 * 1024
-            cpu_limit = f"0-{args.cpulimit - 1}"
+            cpu_limit = f"0-{args.cpulimit - 1}" if not args.batch else f"0-{multiprocessing.cpu_count() - 1}"
             logger.info(f"DBEUG:: mem_limit={mem_limit}, cpu_limit={cpu_limit}")
             
             run_docker(definition, args.dataset, args.count, args.runs, args.timeout, args.batch, cpu_limit, mem_limit)
