@@ -1,0 +1,42 @@
+float:
+  any:
+  - base_args: ['@metric']
+    constructor: FaissIndexFlatIP_AMX
+    disabled: false
+    docker_tag: ann-benchmarks-faiss_amx
+    module: ann_benchmarks.algorithms.faiss_amx
+    name: faiss-indexflatip-amx
+    run_groups:
+      base:
+        args: [[100]]
+        query_args: [[1]]
+  - base_args: ['@metric']
+    constructor: FaissIndexFlatIP_BF16_AMX
+    disabled: false
+    docker_tag: ann-benchmarks-faiss_amx
+    module: ann_benchmarks.algorithms.faiss_amx
+    name: faiss-indexflatip-bf16-amx
+    run_groups:
+      base:
+        args: [[100]]
+        query_args: [[1]]          
+  # - base_args: ['@metric']
+  #   constructor: FaissIVF
+  #   disabled: false
+  #   docker_tag: ann-benchmarks-faiss_amx
+  #   module: ann_benchmarks.algorithms.faiss_amx
+  #   name: faiss-ivf
+  #   run_groups:
+  #     base:
+  #       args: [[32, 64, 128, 256, 512, 1024, 2048, 4096, 8192]]
+  #       query_args: [[1, 5, 10, 50, 100, 200]]
+  # - base_args: ['@metric']
+  #   constructor: FaissIVFPQfs
+  #   disabled: false
+  #   docker_tag: ann-benchmarks-faiss_amx
+  #   module: ann_benchmarks.algorithms.faiss_amx
+  #   name: faiss-ivfpqfs
+  #   run_groups:
+  #     base:
+  #       args: [[512, 1204, 2048, 4096]]
+  #       query_args: [[1, 5, 10, 50, 100, 200], [0, 10, 100, 1000]]
