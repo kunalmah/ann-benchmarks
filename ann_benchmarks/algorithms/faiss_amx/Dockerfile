@@ -1,5 +1,8 @@
 FROM ann-benchmarks
 
+ENV https_proxy=http://proxy-dmz.intel.com:912
+ENV http_proxy=http://proxy-dmz.intel.com:911
+
 RUN apt update && apt install -y wget
 # RUN wget https://repo.anaconda.com/archive/Anaconda3-2020.11-Linux-x86_64.sh
 # RUN bash Anaconda3-2020.11-Linux-x86_64.sh -b
