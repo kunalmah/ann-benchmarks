@@ -37,7 +37,8 @@ RUN apt install cmake -y
 RUN apt install -y build-essential libtool autoconf unzip wget
 # RUN apt-get update -y
 
-ADD xps-prc-ds-faiss-opt.orig ./faiss
+#ADD xps-prc-ds-faiss-opt.orig ./faiss
+git clone https://github.com/intel-innersource/libraries.databases.thirdparty.faiss.git ./faiss
 RUN apt install swig -y
 
 RUN apt-get install -y python3-dev
