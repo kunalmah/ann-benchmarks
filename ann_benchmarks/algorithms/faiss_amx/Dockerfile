@@ -38,7 +38,8 @@ RUN apt install -y build-essential libtool autoconf unzip wget
 # RUN apt-get update -y
 
 #ADD xps-prc-ds-faiss-opt.orig ./faiss
-git clone https://github.com/intel-innersource/libraries.databases.thirdparty.faiss.git ./faiss
+#RUN git clone https://github.com/intel-innersource/libraries.databases.thirdparty.faiss.git ./faiss
+ADD faiss_pkg/inner_faiss.tgz ./
 RUN apt install swig -y
 
 RUN apt-get install -y python3-dev
@@ -52,10 +53,11 @@ WORKDIR /home/app/oneDNN/build
 RUN cmake ..
 RUN make -j
 RUN make install
+RUN cp -aP /root/miniconda3/lib/libmkl* /usr/local/lib/
 
-ADD run_conda.sh /home/app/faiss/
-ADD run_conda_env.sh /home/app/faiss/
-ADD build_faiss.sh /home/app/faiss/
+ADD faiss_pkg/run_conda.sh /home/app/faiss/
+ADD faiss_pkg/run_conda_env.sh /home/app/faiss/
+ADD faiss_pkg/build_faiss.sh /home/app/faiss/
 RUN chmod a+x /home/app/faiss/run_conda.sh
 RUN chmod a+x /home/app/faiss/run_conda_env.sh
 RUN chmod a+x /home/app/faiss/build_faiss.sh
