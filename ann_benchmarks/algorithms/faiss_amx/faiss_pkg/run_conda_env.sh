@@ -7,9 +7,9 @@ ln -s /root/miniconda3/lib/libmkl_intel_lp64.so.2 /root/miniconda3/lib/libmkl_in
 ln -s /root/miniconda3/lib/libmkl_gnu_thread.so.2 /root/miniconda3/lib/libmkl_gnu_thread.so.1
 ln -s /root/miniconda3/lib/libmkl_core.so.2 /root/miniconda3/lib/libmkl_core.so.1
 
-ln -s /root/miniconda3/lib/libmkl_intel_lp64.so.2 /usr/local/lib/libmkl_intel_lp64.so.2
-ln -s /root/miniconda3/lib/libmkl_gnu_thread.so.2 /usr/local/lib/libmkl_gnu_thread.so.2
-ln -s /root/miniconda3/lib/libmkl_core.so.2 /usr/local/lib/libmkl_core.so.2
+# ln -s /root/miniconda3/lib/libmkl_intel_lp64.so.2 /usr/local/lib/libmkl_intel_lp64.so.2
+# ln -s /root/miniconda3/lib/libmkl_gnu_thread.so.2 /usr/local/lib/libmkl_gnu_thread.so.2
+# ln -s /root/miniconda3/lib/libmkl_core.so.2 /usr/local/lib/libmkl_core.so.2
 
 
 # python3 bench_polysemous_sift1m.py

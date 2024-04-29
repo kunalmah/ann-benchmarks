@@ -39,7 +39,7 @@ RUN apt install -y build-essential libtool autoconf unzip wget
 
 #ADD xps-prc-ds-faiss-opt.orig ./faiss
 #RUN git clone https://github.com/intel-innersource/libraries.databases.thirdparty.faiss.git ./faiss
-ADD faiss_pkg/inner_faiss.tgz ./
+ADD faiss_pkg/faiss.tgz ./
 RUN apt install swig -y
 
 RUN apt-get install -y python3-dev
