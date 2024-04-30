@@ -20,9 +20,9 @@ RUN python3 -m pip install ansicolors==1.1.8 docker==5.0.2
 RUN conda install -c pytorch h5py numpy mkl=2023 blas=1.0=mkl
 
 # https://developpaper.com/a-pit-of-mkl-library-in-linux-anaconda/
-# ENV LD_PRELOAD /root/anaconda3/lib/libmkl_core.so:/root/anaconda3/lib/libmkl_sequential.so 
+# ENV LD_PRELOAD /root/anaconda3/lib/libmkl_core.so:/root/anaconda3/lib/libmkl_sequential.so
 
-# RUN apt install -y build-essential 
+# RUN apt install -y build-essential
 # RUN apt install -y wget git vim
 RUN apt install -y software-properties-common lsb-release
 # WORKDIR /home/
@@ -39,7 +39,7 @@ RUN apt install -y build-essential libtool autoconf unzip wget
 
 #ADD xps-prc-ds-faiss-opt.orig ./faiss
 #RUN git clone https://github.com/intel-innersource/libraries.databases.thirdparty.faiss.git ./faiss
-ADD faiss_pkg/faiss.tgz ./
+ADD ann_benchmarks/algorithms/faiss_amx/faiss_pkg/faiss.tgz ./
 RUN apt install swig -y
 
 RUN apt-get install -y python3-dev
@@ -47,33 +47,32 @@ RUN apt-get install -y python3-numpy-dev
 RUN apt-get install -y python3-pip
 
 RUN git clone https://github.com/oneapi-src/oneDNN.git
-WORKDIR /home/app/oneDNN
-RUN mkdir -p build
-WORKDIR /home/app/oneDNN/build
-RUN cmake ..
-RUN make -j
-RUN make install
-RUN cp -aP /root/miniconda3/lib/libmkl* /usr/local/lib/
+#WORKDIR /home/app/oneDNN
+RUN mkdir -p /home/app/oneDNN/build \
+    && cd /home/app/oneDNN/build \
+    && cmake .. \
+    && make -j \
+    && make install \
+    && cp -aP /root/miniconda3/lib/libmkl* /usr/local/lib/
 
-ADD faiss_pkg/run_conda.sh /home/app/faiss/
-ADD faiss_pkg/run_conda_env.sh /home/app/faiss/
-ADD faiss_pkg/build_faiss.sh /home/app/faiss/
+
+ADD ann_benchmarks/algorithms/faiss_amx/faiss_pkg/run_conda.sh /home/app/faiss/
+ADD ann_benchmarks/algorithms/faiss_amx/faiss_pkg/run_conda_env.sh /home/app/faiss/
+ADD ann_benchmarks/algorithms/faiss_amx/faiss_pkg/build_faiss.sh /home/app/faiss/
 RUN chmod a+x /home/app/faiss/run_conda.sh
 RUN chmod a+x /home/app/faiss/run_conda_env.sh
 RUN chmod a+x /home/app/faiss/build_faiss.sh
 
-WORKDIR /home/app/faiss/
-# RUN ./run_conda.sh
-RUN ./run_conda_env.sh
-RUN ./build_faiss.sh
+#WORKDIR /home/app/faiss/
+RUN cd /home/app/faiss/ \
+    && ./run_conda.sh \
+    && ./run_conda_env.sh \
+    && ./build_faiss.sh
 
-RUN python3 -c 'import faiss; print(faiss.IndexFlatIP)'
-WORKDIR /home/app
-RUN pip3 install psutil 
+#RUN python3 -c 'import faiss; print(faiss.IndexFlatIP)'
+#WORKDIR /home/app
+RUN pip3 install psutil
 RUN pip3 install pyyaml
 RUN pip3 install scikit-learn scipy matplotlib
 RUN pip3 install tensorflow
 ENV DNNL_ENABLE=1
-
-
-

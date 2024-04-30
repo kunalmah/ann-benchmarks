@@ -7,12 +7,12 @@ else
     ln -s ../../deep1b benchs/deep1b
 fi
 
-if [ -d "benchs/sift1M" ]; then
-    echo "sift1M exist"
-else
-    echo "sift1M does not exist"
-    ln -s ../../sift1M benchs/sift1M
-fi
+# if [ -d "benchs/sift1M" ]; then
+#     echo "sift1M exist"
+# else
+#     echo "sift1M does not exist"
+#     ln -s ../../sift1M benchs/sift1M
+# fi
 
 /root/miniconda3/bin/conda init
 bash
