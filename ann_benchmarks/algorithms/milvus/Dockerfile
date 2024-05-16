@@ -6,8 +6,8 @@ ENV https_proxy=http://proxy-dmz.intel.com:912
 ENV http_proxy=http://proxy-dmz.intel.com:911
 
 # update python packages
-RUN pip3 install -r requirements.txt
-RUN pip3 install scipy==1.10.1
+RUN python3 -m pip install -r requirements.txt
+RUN python3 -m pip install scipy==1.10.1
 RUN python3 -c 'import pyknowhere'
 
 ENTRYPOINT ["python3", "-u", "run_algorithm.py"]
