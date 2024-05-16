@@ -7,7 +7,7 @@ ENV http_proxy=http://proxy-dmz.intel.com:911
 
 # export https_proxy=http://proxy-dmz.intel.com:912
 # export http_proxy=http://proxy-dmz.intel.com:911
-echo $https_proxy
+RUN echo $https_proxy
 # update python packages
 RUN python3 -m pip install -r requirements.txt
 RUN python3 -m pip install scipy==1.10.1
